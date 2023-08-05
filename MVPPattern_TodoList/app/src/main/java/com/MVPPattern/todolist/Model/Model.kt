@@ -1,12 +1,12 @@
 package com.MVPPattern.todolist.Model
 
-import com.MVPPattern.todolist.Presenter.Contract
+import com.MVPPattern.todolist.DataClass.TodoDataClass
+import com.MVPPattern.todolist.TodoListAdapter
 
-class Model(presenter: Contract.Presenter) {
-    private var presenter : Contract.Presenter? = null
+class Model{
+        var todoListArray : ArrayList<TodoDataClass>? = null
 
-   init{
-        this.presenter = presenter
+    fun todoListRecyclerView(a : TodoDataClass){
+
     }
-
 }

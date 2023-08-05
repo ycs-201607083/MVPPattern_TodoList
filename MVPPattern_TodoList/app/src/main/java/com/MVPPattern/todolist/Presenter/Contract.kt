@@ -1,12 +1,14 @@
 package com.MVPPattern.todolist.Presenter
 
+import com.MVPPattern.todolist.DataClass.TodoDataClass
+
 interface Contract {
-    interface View{
-        fun showList(list : String)
+    interface view{
+        fun showList(todoList : List<TodoDataClass>)
     }
 
     interface Presenter{
-        fun editTodo(todoList : String)
+        fun loadTodoList()
     }
 
 }

@@ -7,16 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.MVPPattern.todolist.DataClass.TodoDataClass
 import com.MVPPattern.todolist.Presenter.Contract
 import com.MVPPattern.todolist.Presenter.MainPresenter
 import com.MVPPattern.todolist.TodoListAdapter
 import com.MVPPattern.todolist.databinding.FragmentTodoListBinding
 
-class TodoListFragment : Fragment() , Contract.View{
+class TodoListFragment : Fragment(), Contract.view{
     private var binding_todoList : FragmentTodoListBinding? = null
-    private lateinit var presenter : Contract.Presenter
     private lateinit var adapter: TodoListAdapter
     private var mContext: Context? = null
+    private lateinit var todoListData : ArrayList<TodoDataClass>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,6 @@ class TodoListFragment : Fragment() , Contract.View{
         savedInstanceState: Bundle?
     ): View? {
         binding_todoList = FragmentTodoListBinding.inflate(inflater, container, false)
-        presenter = MainPresenter(this)
 
         init()
 
@@ -49,7 +49,6 @@ class TodoListFragment : Fragment() , Contract.View{
         //리니어 레이아웃 매니저 사용
         val layoutManager = LinearLayoutManager(mContext)
         binding_todoList!!.todoListRecyclerView.layoutManager = layoutManager
-
         //어댑터 생성 및 연결
         adapter = TodoListAdapter(mContext!!)
         binding_todoList!!.todoListRecyclerView.adapter = adapter
@@ -61,7 +60,8 @@ class TodoListFragment : Fragment() , Contract.View{
         mContext = null
     }
 
-    override fun showList(list: String) {
+    override fun showList(todoList: List<TodoDataClass>) {
 
     }
+
 }

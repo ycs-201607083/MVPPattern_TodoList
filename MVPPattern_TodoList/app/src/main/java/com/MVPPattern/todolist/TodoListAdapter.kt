@@ -14,7 +14,7 @@ import com.MVPPattern.todolist.DataClass.TodoDataClass
 class TodoListAdapter(private val mContext:Context): RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
     /*lateinit var todoList: ArrayList<TodoDataClass>*/
-    private var todoList: List<TodoDataClass> = emptyList() // 초기화
+    private var todoList: List<TodoDataClass> = emptyList()
 
     override fun getItemCount(): Int {
         return todoList.size
