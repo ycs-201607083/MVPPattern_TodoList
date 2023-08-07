@@ -1,20 +1,19 @@
 package com.MVPPattern.todolist
 
 import android.content.Context
-import android.provider.ContactsContract.Profile
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.MVPPattern.todolist.DataClass.TodoDataClass
+import com.MVPPattern.todolist.Model.DataModel
+import com.MVPPattern.todolist.Presenter.Contract
+import com.MVPPattern.todolist.Presenter.MainPresenter
 
 class TodoListAdapter(private val mContext:Context): RecyclerView.Adapter<TodoListAdapter.ViewHolder>() {
 
-    /*lateinit var todoList: ArrayList<TodoDataClass>*/
-    private var todoList: List<TodoDataClass> = emptyList()
+    private var todoList: List<DataModel> = emptyList()
 
     override fun getItemCount(): Int {
         return todoList.size
@@ -24,6 +23,7 @@ class TodoListAdapter(private val mContext:Context): RecyclerView.Adapter<TodoLi
         return ViewHolder(view)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(todoList[position])
 
         holder.itemView.setOnClickListener {
             Log.d("loglog", "position:$position")
@@ -31,13 +31,22 @@ class TodoListAdapter(private val mContext:Context): RecyclerView.Adapter<TodoLi
         }
     }
 
-    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        private val todoTitle : TextView = view.findViewById(R.id.todoTitie)
-        private val todoContent : TextView = view.findViewById(R.id.todoContent)
+    //프레젠터에서 데이터 가져오기
+    fun setData(todoList : List<DataModel>){
+        this.todoList = todoList
 
-        fun bind(item : TodoDataClass) {
+        notifyDataSetChanged()
+    }
+
+    inner class ViewHolder(view: View): RecyclerView.ViewHolder(view){
+        private val todoTitle : TextView = view.findViewById(R.id.todoTitle)
+        private val todoContent : TextView = view.findViewById(R.id.todoContent)
+        private val todoDate = view.findViewById<TextView>(R.id.todoDate)
+
+        fun bind(item : DataModel) {
             todoTitle.text = item.title
             todoContent.text = item.content
+            todoDate.text = item.date
         }
     }
 }

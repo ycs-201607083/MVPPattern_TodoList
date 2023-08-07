@@ -1,10 +1,10 @@
 package com.MVPPattern.todolist.Presenter
 
-import com.MVPPattern.todolist.DataClass.TodoDataClass
+import com.MVPPattern.todolist.Model.DataModel
 
 interface Contract {
-    interface view{
-        fun showList(todoList : List<TodoDataClass>)
+    interface View{
+        fun showTodoList(todoList : List<DataModel>)
     }
 
     interface Presenter{

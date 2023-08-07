@@ -29,13 +29,14 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun dialog(){
+        myDialog = MyDialog(this)
         bindingMain.fabWrite.setOnClickListener {
-            MyDialog(this).show()
+            myDialog.show()
         }
     }
 
     private fun initFragment(){
-        todoListFragment = TodoListFragment()
+        todoListFragment = TodoListFragment(this)
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentLayout, todoListFragment)
             .commit()

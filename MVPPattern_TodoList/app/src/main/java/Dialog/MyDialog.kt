@@ -2,8 +2,6 @@ package Dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.WindowManager
 import android.widget.Toast
@@ -19,8 +17,7 @@ class MyDialog(private var mContext: Context) : Dialog(mContext) {
 
         setContentView(bindingDialog.root)
         window!!.setLayout(WindowManager.LayoutParams.WRAP_CONTENT, WindowManager.LayoutParams.WRAP_CONTENT)
-        setCanceledOnTouchOutside(true)
-        setCancelable(true)
+        setCanceledOnTouchOutside(false)
         init()
     }
 
@@ -34,17 +31,13 @@ class MyDialog(private var mContext: Context) : Dialog(mContext) {
     }
 
     fun blackDialog() {
-        bindingDialog.dialogContent.setOnClickListener {
-            if (bindingDialog.dialogContent.text.isNullOrBlank()) {
-                Toast.makeText(mContext, "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+        var Content = bindingDialog.dialogContent
+        var Title = bindingDialog.dialogTitle
+
+        bindingDialog.dialogOKBtn.setOnClickListener {
+            if (Content.text.isNullOrEmpty() || Title.text.isNullOrEmpty()) {
+                Toast.makeText(mContext, "빈칸을 채워주세요.", Toast.LENGTH_SHORT).show()
             }
         }
-
-        bindingDialog.dialogTitle.setOnClickListener {
-            if (bindingDialog.dialogTitle.text.isNullOrEmpty()) {
-                Toast.makeText(mContext, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }
-        }
-
     }
 }

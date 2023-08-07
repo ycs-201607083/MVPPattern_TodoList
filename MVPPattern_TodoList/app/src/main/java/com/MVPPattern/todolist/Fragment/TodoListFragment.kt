@@ -7,17 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.MVPPattern.todolist.DataClass.TodoDataClass
+import com.MVPPattern.todolist.Model.DataModel
 import com.MVPPattern.todolist.Presenter.Contract
 import com.MVPPattern.todolist.Presenter.MainPresenter
 import com.MVPPattern.todolist.TodoListAdapter
 import com.MVPPattern.todolist.databinding.FragmentTodoListBinding
 
-class TodoListFragment : Fragment(), Contract.view{
+class TodoListFragment(var mContext : Context) : Fragment(), Contract.View{
     private var binding_todoList : FragmentTodoListBinding? = null
     private lateinit var adapter: TodoListAdapter
-    private var mContext: Context? = null
-    private lateinit var todoListData : ArrayList<TodoDataClass>
+    private lateinit var todoListData : List<DataModel>
+    private lateinit var presenter : MainPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +35,9 @@ class TodoListFragment : Fragment(), Contract.view{
         savedInstanceState: Bundle?
     ): View? {
         binding_todoList = FragmentTodoListBinding.inflate(inflater, container, false)
+        //객체생성
+        presenter = MainPresenter(this)
+
 
         init()
 
@@ -50,18 +53,19 @@ class TodoListFragment : Fragment(), Contract.view{
         val layoutManager = LinearLayoutManager(mContext)
         binding_todoList!!.todoListRecyclerView.layoutManager = layoutManager
         //어댑터 생성 및 연결
-        adapter = TodoListAdapter(mContext!!)
+        adapter = TodoListAdapter(mContext)
         binding_todoList!!.todoListRecyclerView.adapter = adapter
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding_todoList = null
-        mContext = null
     }
 
-    override fun showList(todoList: List<TodoDataClass>) {
-
+    override fun showTodoList(todoList: List<DataModel>) {
+        this.todoListData = todoList
+        adapter.setData(todoListData)
     }
+
 
 }
